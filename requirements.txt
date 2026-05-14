@@ -1,0 +1,4 @@
+pymeasure
+PyQt5
+scipy
+numpy
