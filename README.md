@@ -3,8 +3,6 @@
 Graphical acquisition software for automated four-point resistance measurements
 using a Keithley 2400 sourcemeter and a temperature-controlled tube furnace.
 
-The software allows
-
 ## Purpose
 
 This software was developed to automate high-temperature four-point resistance
@@ -29,6 +27,26 @@ measurement data to CSV files.
 - K-type thermocouple
 - USB-to-serial interface, originally tested with an ATEN USB-to-Serial Bridge
 - Four-point sample holder for high-temperature measurements
+
+## Detailed operation
+
+The software uses both the front and back terminals of the Keithley
+to not only measure the IV characteristics of the sample
+but also automatically schedule the measurements without the need to connect it to the furnace control unit.
+
+The back terminals are used for the four point resistance measurements via IV scans.
+The software allows setting the extremal current values and current step
+and performs a scan in the following order: 0 -> max -> min -> 0.
+
+When no scans are running, the software uses the Keithley's front terminals
+to read out the K-type thermocouple in the furnace and determine the temperature stability.
+If the temperature gradient in the previous rolling 60 s is less than the preset value (default 0.5 K/min)
+the temperature is determined as 'stable' and the scans are scheduled
+after a 'delay' which allows time to settle at a new temperature point and subsequently
+after every 'interval' until temperature stability is broken, indicating that the furnace is
+moving to the next preset temperature point. The automated scans stop when a stable temperature
+is reached below a set limit, default 200 °C.
+
 
 ## Status
 
